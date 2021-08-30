@@ -61,10 +61,11 @@ class FrictionZone {
     rect(this.position.x, this.position.y, this.size, this.size);
   }
   calculateForce(velocity){
-    let c = 0.0001;
+    let c = 0.6;
     let normal = 1;
-    let frictionMag = c * normal;    
-    let force = velocity.normalize(velocity.mult(-1));
+    let frictionMag = c * normal;
+    let vel = velocity.copy();
+    let force = vel.normalize(vel.mult(-1));
     return force.mult(frictionMag);
   }
 }
