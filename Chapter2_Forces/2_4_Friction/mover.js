@@ -21,7 +21,8 @@ class Mover {
       ellipse(this.position.x, this.position.y, this.size, this.size);
     }
     isInside(zone){
-        if(this.position.x > zone.position.x && this.position.y > zone.position.y && this.position.x < zone.position.x + zone.size && this.position.y < zone.position.y + zone.size){
+        let s = this.size / 2;
+        if(this.position.x + s > zone.position.x && this.position.y + s > zone.position.y && this.position.x - s < zone.position.x + zone.size && this.position.y - s < zone.position.y + zone.size){
             return true;
         } else {
             return false;

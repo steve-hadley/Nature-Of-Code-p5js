@@ -19,9 +19,9 @@ function draw() {
   let windStrength = 1;
   let windForce;
   if (keyIsDown(LEFT_ARROW)) {
-    windForce = createVector(-1, 0);
+    windForce = createVector(-0.1, 0);
   } else if (keyIsDown(RIGHT_ARROW)) {
-    windForce = createVector(1, 0);
+    windForce = createVector(0.1, 0);
   } else {
     windForce = createVector(0, 0);
   }
@@ -43,11 +43,13 @@ class Balloon {
     this.acceleration = createVector(0, 0);
   }
   applyForce(force) {
-    force.div(this.mass);
-    this.acceleration.add(force);
+    let f = force.copy();
+    f.div(this.mass);
+    this.acceleration.add(f);
   }
   update() {
     this.velocity.add(this.acceleration);
+    this.velocity.limit(3);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
   }

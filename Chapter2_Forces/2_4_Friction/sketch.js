@@ -14,12 +14,13 @@ function setup() {
   for (let i = 0; i < 10; i++) {
     frictionZones[i] = new FrictionZone(createVector(random(0, width), random(0, height)), 100, 1);
   }
+
+  // Apply noise force
+  mover.applyForce(calculateNoise().mult(100));
 }
 
 function draw() {
   background(220);
-  // Apply noise force
-  mover.applyForce(calculateNoise());
   mover.update();
   mover.wrapEdges();
   CheckFriction();
@@ -55,17 +56,21 @@ class FrictionZone {
     this.position = position;
     this.size = size;
     this.strength = strength;
-
   }
   display() {
     rect(this.position.x, this.position.y, this.size, this.size);
   }
   calculateForce(velocity){
-    let c = 0.6;
+    // Calculate friction
+    let c = 0.03;
     let normal = 1;
     let frictionMag = c * normal;
-    let vel = velocity.copy();
-    let force = vel.normalize(vel.mult(-1));
-    return force.mult(frictionMag);
+
+    // Get reverse velocity
+    let friction = velocity.copy();
+    friction.mult(-1);
+    friction.normalize();
+
+    return friction.mult(frictionMag);
   }
 }

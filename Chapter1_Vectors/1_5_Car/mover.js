@@ -9,8 +9,9 @@ class Mover {
       this.acceleration = createVector(0, 0);
     }
     applyForce(force) {
-      force.div(this.mass);
-      this.acceleration.add(force);
+      let f = force.copy();
+      f.div(this.mass);
+      this.acceleration.add(f);
     }
     slowDown(){
       let velocity = this.velocity.copy();
