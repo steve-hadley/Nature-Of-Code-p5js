@@ -1,0 +1,48 @@
+
+class Mover {
+    constructor() {
+      this.size = createVector(100, 50);
+      this.mass = 1;
+      this.position = createVector(this.size.x, height - this.size.y);
+      this.velocity = createVector(0, 0);
+      this.acceleration = createVector(0, 0);
+    }
+    applyForce(force) {
+      force.div(this.mass);
+      this.acceleration.add(force);
+    }
+    update() {
+      // Friction and bounce off ground
+      if(this.position.y > (height - this.size.y - 1)){
+        this.position.y = height - this.size.y - 1;
+
+        // Friction
+        let c = 0.1;
+        let normal = 1;
+        let frictionMag = c * normal;
+        let friction = this.velocity.copy();
+        friction = friction.mult(-1);
+        friction = friction.normalize();
+        friction = friction.mult(frictionMag);
+        this.applyForce(friction);
+
+        // Bounce
+        if(this.velocity.mag() > 2){
+          this.velocity.y *= -0.5;
+        }
+      }
+
+      // Bounce of wall
+      if(this.position.x > width - this.size.x ){
+        this.velocity.x *= -1;
+      }
+
+      this.velocity.add(this.acceleration);
+      this.position.add(this.velocity);
+      this.acceleration.mult(0);
+      
+    }
+    display() {
+      rect(this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+  }
