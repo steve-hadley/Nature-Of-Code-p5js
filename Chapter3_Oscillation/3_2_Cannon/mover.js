@@ -3,7 +3,7 @@ class Mover {
     constructor() {
       this.size = createVector(50, 50);
       this.mass = 1;
-      this.position = createVector(this.size.x, height - this.size.y);
+      this.position = createVector(100 / 2, height - 80 / 2);
       this.velocity = createVector(0, 0);
       this.acceleration = createVector(0, 0);
     }
