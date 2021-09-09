@@ -1,7 +1,7 @@
 
 class Mover {
     constructor() {
-      this.size = createVector(100, 50);
+      this.size = createVector(50, 50);
       this.mass = 1;
       this.position = createVector(this.size.x, height - this.size.y);
       this.velocity = createVector(0, 0);
@@ -13,8 +13,9 @@ class Mover {
     }
     update() {
       // Friction and bounce off ground
-      if(this.position.y > (height - this.size.y - 1)){
-        this.position.y = height - this.size.y - 1;
+      if(this.position.y > (height - (this.size.y / 2))){
+        
+        this.position.y = height - (this.size.y / 2) - 1;
 
         // Friction
         let c = 0.1;
@@ -43,6 +44,6 @@ class Mover {
       
     }
     display() {
-      rect(this.position.x, this.position.y, this.size.x, this.size.y);
+      ellipse(this.position.x, this.position.y, this.size.x);
     }
   }
