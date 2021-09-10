@@ -44,6 +44,13 @@ class Mover {
       
     }
     display() {
-      ellipse(this.position.x, this.position.y, this.size.x);
+      let h = this.velocity.copy();
+      h.normalize();
+      let a = atan2(h.y, h.x);
+      push();
+      translate(this.position.x, this.position.y);
+      rotate(a);
+      rect(0, 0, this.size.x, this.size.y);
+      pop();
     }
   }

@@ -14,11 +14,11 @@ function draw() {
   background(220);
 
   movers.forEach(element => {
+
     if(element.position.y <= (height - 20)){
       let gravity = createVector(0, 0.1);
       element.applyForce(gravity);
     }
-  
     element.update();
     element.display();
   });
@@ -26,11 +26,12 @@ function draw() {
   // Calculate mouse direction vector
   let mouseVector = createVector(mouseX, mouseY);
   mouseDirection = mouseVector.sub(cannon.position);
-
+  push();
   let angle = atan2(mouseDirection.y, mouseDirection.x);
   translate(cannon.position);
   rotate(angle);
   cannon.display();
+  pop();
 }
 
 function mouseClicked() {
